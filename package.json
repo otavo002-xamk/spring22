@@ -1,0 +1,29 @@
+{
+  "name": "dev-academy-assignment-2022",
+  "version": "1.0.0",
+  "description": "Dev Academy assignment for spring 2022",
+  "main": "main",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otavo002-xamk/spring22.git"
+  },
+  "keywords": [
+    "node.js",
+    "express.js",
+    "mongodb"
+  ],
+  "author": "Tapani Voutilainen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/otavo002-xamk/spring22/issues"
+  },
+  "homepage": "https://github.com/otavo002-xamk/spring22#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongodb": "^4.2.1"
+  }
+}
