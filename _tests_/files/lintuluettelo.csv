@@ -1,0 +1,4 @@
+location,datetime,sensorType,value
+Kotka,2018-12-22,temperature,3
+Kuopio,2011-2-3,rainFall,6
+Mikkeli,2022-1-1,pH,4

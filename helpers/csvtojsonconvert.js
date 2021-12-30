@@ -1,3 +1,11 @@
+// This module is used for converting data from csv-format to
+// json. The function takes csv-data as it's parameter. The
+// data is split in line brakes. Then the first line (headers)
+// is separated with shift() and split in colons. Each row
+// is then split in colons. Each of these columns gets it's key
+// -name from the corresponding header-column. Each row is then
+// pushed to the json-object, which is returned.
+
 module.exports = {
 
     "csvToJson": async (csvfile, cb) => {
@@ -21,15 +29,10 @@ module.exports = {
                 });
             }
 
-            async function concatenateColumns(columns) {
-                let items = 
-                await columns.forEach(column => {
-
-                });
-            }
             columns(cols);
             obj.push(item);
             i++;
+            
         });
 
         cb(obj);

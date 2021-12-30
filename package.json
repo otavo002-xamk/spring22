@@ -4,7 +4,10 @@
   "description": "Dev Academy assignment for spring 2022",
   "main": "main",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -22,8 +25,12 @@
   },
   "homepage": "https://github.com/otavo002-xamk/spring22#readme",
   "dependencies": {
+    "@shelf/jest-mongodb": "^2.1.1",
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "mongodb": "^4.2.1"
+    "jest": "^27.4.5",
+    "mongodb": "^4.2.2",
+    "mongodb-memory-server": "^8.0.4"
   }
 }
