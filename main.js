@@ -1,11 +1,15 @@
 var express = require('express');
 var app = express();
+const bodyParser = require("body-parser");
 const mongodb = require('mongodb');
 var path = require('path');
 const fs = require('fs');
 
-const csvtojson = require('./helpers/csvtojsonconvert'); // This module converts data from csv file to a json-object.
-const datainsert = require('./helpers/databaseinsert'); // This module inserts the data from the json-object to the database.
+const datatoanalyze = require('./helpers/datatoanalyze');
+const monthlyavgs = require('./helpers/monthlyavgs');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ "extended": true }));
 
 require('dotenv').config(); // implements environment variables to the process-environment from the .env-file.
 
@@ -16,22 +20,30 @@ const context = async (dburl) => await mongodb.MongoClient.connect(dburl, // cre
 app.set('view engine', 'ejs');                          // sets up ejs as a template-engine
 app.set('views', path.join(__dirname, 'views'));        // sets template-file folder
 
-const files = [                                                         // the csv files from where to convert json
-    fs.readFileSync(__dirname + '/files/friman_metsola.csv', 'utf8'),
-    fs.readFileSync(__dirname + '/files/Nooras_farm.csv', 'utf8'),
-    fs.readFileSync(__dirname + '/files/ossi_farm.csv', 'utf8'),
-    fs.readFileSync(__dirname + '/files/PartialTech.csv', 'utf8')
-];
+app.get('/', (req, res) => {                            // The root path: renders index page
+    res.render('index', { "result": null });
+});
 
-// The root path: For each csv-file the data gets converted to json. Then the json-data is inserted to database.
-app.get('/', (req, res) => {
-    files.forEach(async file => {
-        await csvtojson.csvToJson(file, data => {
-            datainsert.insertFarmData(data, context, process.env.DBURL, (confirmation) => {
+// sends a request that holds the farm, the starting and ending dates and the sensor type,
+// gets the data from the database, calculates the monthly average values of the sensor data,
+// then renders the index page with the information
+app.post('/getstatistics', (req, res) => {
+    datatoanalyze.getDataToAnalyze(req.body, context, process.env.DBURL, data => {
+        monthlyavgs.calculateMonthlyAverages(data.response, req.body.start_date, req.body.end_date, mdocuments => {
+            res.render('index', {
+                                "farm": req.body.select_farm,
+                                "sensortype": req.body.sensorType,
+                                "startdate": req.body.start_date,
+                                "enddate": req.body.end_date,
+                                "result": {
+                                            "min": data.min,
+                                            "max": data.max,
+                                            "average": data.avg
+                                },
+                                "monthly_documents": mdocuments
             });
         });
     });
-    res.send('done');
 });
 
 app.listen(9000);
