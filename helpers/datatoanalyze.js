@@ -17,48 +17,48 @@ module.exports = {
                                 $lt: rqstbody.end_date
                             },
                     sensorType: rqstbody.sensorType
-                },
-                {
-                    projection: {
-                                "_id": 0,
-                                "location": 0,
-                                "sensorType": 0,
-                                }
-                }).toArray()).then(async response => {
-                                                        let sum = 0;
-                                                        let min = 10000;
-                                                        let max = -10000;
-                                                        await response.forEach(element => {
-                                                            if (element.value != 'NULL' && element.value != '') {
-                                                                if (rqstbody.sensorType == "temperature") {
-                                                                    if (element.value > -50 && element.value < 100) {
-                                                                        sum += parseFloat(element.value);
-                                                                        if (element.value * 1000 < min * 1000) min = element.value;
-                                                                        if (element.value * 1000 > max * 1000) max = element.value;
-                                                                    }
-                                                                } else if (rqstbody.sensorType == "pH") {
-                                                                    if (element.value >= 0 && element.value <= 14) {
-                                                                        sum += parseFloat(element.value);
-                                                                        if (element.value * 1000 < min * 1000) min = element.value;
-                                                                        if (element.value * 1000 > max * 1000) max = element.value;
-                                                                    }
-                                                                } else if (rqstbody.sensorType == "rainFall") {
-                                                                    if (element.value >= 0 && element.value <= 500) {
-                                                                        sum += parseFloat(element.value);
-                                                                        if (element.value * 1000 < min * 1000) min = element.value;
-                                                                        if (element.value * 1000 > max * 1000) max = element.value;
-                                                                    }
-                                                                }
-                                                            }
-                                                        });
-                                                        if (rqstbody.sensorType == "pH") {
-                                                            let avg = parseFloat((sum / response.length).toFixed(1));
-                                                            cb({ response, avg, min, max });
-                                                        } else {
-                                                            let avg = parseFloat((sum / response.length).toFixed(2));
-                                                            cb({ response, avg, min, max });                
-                                                        }
-                                                    });
+            },
+            {
+                projection: {
+                    "_id": 0,
+                    "location": 0,
+                    "sensorType": 0,
+                }
+            }).toArray()).then(async response => {
+            let sum = 0;
+            let min = 10000;
+            let max = -10000;
+            await response.forEach(element => {
+                if (element.value != 'NULL' && element.value != '') {
+                    if (rqstbody.sensorType == "temperature") {
+                        if (element.value > -50 && element.value < 100) {
+                            sum += parseFloat(element.value);
+                            if (element.value * 1000 < min * 1000) min = element.value;
+                            if (element.value * 1000 > max * 1000) max = element.value;
+                        }
+                    } else if (rqstbody.sensorType == "pH") {
+                        if (element.value >= 0 && element.value <= 14) {
+                            sum += parseFloat(element.value);
+                            if (element.value * 1000 < min * 1000) min = element.value;
+                            if (element.value * 1000 > max * 1000) max = element.value;
+                        }
+                    } else if (rqstbody.sensorType == "rainFall") {
+                        if (element.value >= 0 && element.value <= 500) {
+                            sum += parseFloat(element.value);
+                            if (element.value * 1000 < min * 1000) min = element.value;
+                            if (element.value * 1000 > max * 1000) max = element.value;
+                        }
+                    }
+                }
+            });
+            if (rqstbody.sensorType == "pH") {
+                let avg = parseFloat((sum / response.length).toFixed(1));
+                cb({ response, avg, min, max });
+            } else {
+                let avg = parseFloat((sum / response.length).toFixed(2));
+                cb({ response, avg, min, max });                
+            }
+        });
 
     }
 
