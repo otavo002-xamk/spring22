@@ -7,7 +7,6 @@ const fs = require('fs');
 
 const datatoanalyze = require('./helpers/datatoanalyze');
 const monthlyavgs = require('./helpers/monthlyavgs');
-const chartcreation = require('./helpers/chartcreation');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ "extended": true }));
@@ -32,21 +31,17 @@ app.get('/', (req, res) => {                            // The root path: render
 app.post('/getstatistics', (req, res) => {
     datatoanalyze.getDataToAnalyze(req.body, context, process.env.DBURL, data => {
         monthlyavgs.calculateMonthlyAverages(data.response, req.body.start_date, req.body.end_date, mdocuments => {
-            chartcreation.createChart(mdocuments, chart => {
-                console.log(chart);
-                res.render('index', {
-                                    "farm": req.body.select_farm,
-                                    "sensortype": req.body.sensorType,
-                                    "startdate": req.body.start_date,
-                                    "enddate": req.body.end_date,
-                                    "result": {
-                                                "min": data.min,
-                                                "max": data.max,
-                                                "average": data.avg
-                                    },
-                                    "monthly_documents": mdocuments,
-                                    "chart": chart
-                });
+            res.render('index', {
+                                "farm": req.body.select_farm,
+                                "sensortype": req.body.sensorType,
+                                "startdate": req.body.start_date,
+                                "enddate": req.body.end_date,
+                                "result": {
+                                            "min": data.min,
+                                            "max": data.max,
+                                            "average": data.avg
+                                },
+                                "monthly_documents": mdocuments
             });
         });
     });
