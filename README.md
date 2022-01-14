@@ -27,9 +27,9 @@ database before it can be utilized.
 
 4. Create a .env file to the project's root directory where you must declare a 'DB' and 'DBURL', for example:
 
-DBURL = mongodb://127.0.0.1:27017/db
+  DBURL = mongodb://127.0.0.1:27017/db
 
-DB = farm_data
+  DB = farm_data
 
 After succesfully going through the previously described steps, run
 'node main' in cmd in the root of this project's root directory. This will start the server in gate 9000.
