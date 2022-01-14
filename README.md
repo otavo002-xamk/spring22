@@ -26,7 +26,9 @@ should be installed as well.
 database before it can be utilized.
 
 4. Create a .env file to the project's root directory where you must declare a 'DB' and 'DBURL', for example:
-DBURL = mongodb://127.0.0.1:27017/db \n
+
+DBURL = mongodb://127.0.0.1:27017/db
+
 DB = farm_data
 
 After succesfully going through the previously described steps, run
