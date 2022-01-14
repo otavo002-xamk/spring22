@@ -13,13 +13,25 @@ The entry file of the project is main.js. _tests_ folder holds the test files as
 running the test database in memory. helpers folder holds the modules for database operations and calculations.
 styles folder holds the css stylesheet. views folder holds the view template file.
 
-First and foremost the Node.js environment is required to be installed for this project to run. When Node.js
-is installed successfully, open cmd and run 'npm install' in this project's root directory. This will
-install the dependencies specified in the package.json file. The project uses MongoDB, and therefore that
-should be installed as well. Also the measured data that we want to read should also be stored in the
-database before it can be utilized. After succesful installation of Node.js and MongoDB as well as storing
-the data from csv files, run 'node main'. This will start the server in gate 9000. Open your browser and
-type localhost:9000. The Farm Data Analyzer should open on the screen.
+Follow these steps to run the project:
+
+1. First and foremost the Node.js environment is required to be installed for this project to run. When
+Node.js is installed successfully, open cmd and run 'npm install' in this project's root directory. This
+will install the dependencies specified in the package.json file.
+
+2. The project uses MongoDB, and therefore that
+should be installed as well.
+
+3. Also the measured data that we want to read should also be stored in the
+database before it can be utilized.
+
+4. Create a .env file to the project's root directory where you must declare a 'DB' and 'DBURL', for example:
+DBURL = mongodb://127.0.0.1:27017/db
+DB = farm_data
+
+After succesfully going through the previously described steps, run
+'node main' in cmd in the root of this project's root directory. This will start the server in gate 9000.
+Open your browser and type localhost:9000. The Farm Data Analyzer should open on the screen.
 
 For testing, run 'npm test' to run all tests or 'npm test [test-file-name]' to run a single test file.
 
