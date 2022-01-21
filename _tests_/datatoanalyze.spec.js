@@ -10,6 +10,8 @@ const datatoanalyze = require('../helpers/datatoanalyze');
 const { dataBaseConnect, context, closeDatabase } = require('./config/testdatabase');
 const { afterAll, describe } = require('jest-circus');
 
+jest.setTimeout(20000);
+
 let testobject = [
     {
         location: 'Kotka',
