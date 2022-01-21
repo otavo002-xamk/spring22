@@ -7,6 +7,9 @@
 #container {
     padding: 10px;
 }
+#table, #chart {
+	margin-top: 40px;
+}
 
 label, input {
     margin: 5px;
