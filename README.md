@@ -28,9 +28,9 @@ should be installed as well.
 3. Also the measured data that we want to read should also be stored in the
 database before it can be utilized.
   
-5. This project uses Gnuplot for chart drawing. Install Gnuplot to your computer before running this project.
+4. This project uses Gnuplot for chart drawing. Install Gnuplot to your computer before running this project.
 
-4. Create a .env file to the project's root directory where you must declare a 'DB', 'DBURL' and 'GNUPLOT_WD',
+5. Create a .env file to the project's root directory where you must declare a 'DB', 'DBURL' and 'GNUPLOT_WD',
 for example:
 
   DBURL = mongodb://127.0.0.1:27017/db
